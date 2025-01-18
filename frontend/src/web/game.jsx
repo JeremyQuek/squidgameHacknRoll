@@ -173,10 +173,10 @@ function WebView() {
   }, [aiChoices]);
 
   useEffect(() => {
-    if (aiScore == 3) {
+    if (aiScore == 2) {
       setFinalRes("lost");
     }
-    if (playerScore == 3) {
+    if (playerScore == 2) {
       setFinalRes("win");
     }
   }, [aiScore, playerScore]);

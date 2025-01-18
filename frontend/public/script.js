@@ -32,13 +32,13 @@ document.addEventListener("gun-shot", () => {
 
   if (tele?.HapticFeedback) {
     tele.HapticFeedback.impactOccurred("heavy");
-    setTimeout(() => tele.HapticFeedback.impactOccurred(heavy), 50);
-    setTimeout(() => tele.HapticFeedback.impactOccurred("heavy"), 50);
-    setTimeout(() => tele.HapticFeedback.impactOccurred("heavy"), 50);
-    setTimeout(() => tele.HapticFeedback.impactOccurred("heavy"), 50);
-    setTimeout(() => tele.HapticFeedback.impactOccurred("heavy"), 50);
-    setTimeout(() => tele.HapticFeedback.impactOccurred("heavy"), 50);
-    setTimeout(() => tele.HapticFeedback.impactOccurred("heavy"), 50);
-    setTimeout(() => tele.HapticFeedback.impactOccurred("heavy"), 50);
+    setTimeout(() => tele.HapticFeedback.impactOccurred(heavy), 150);
+    setTimeout(() => tele.HapticFeedback.impactOccurred("heavy"), 150);
+    setTimeout(() => tele.HapticFeedback.impactOccurred("heavy"), 150);
+    setTimeout(() => tele.HapticFeedback.impactOccurred("heavy"), 150);
+    setTimeout(() => tele.HapticFeedback.impactOccurred("heavy"), 150);
+    setTimeout(() => tele.HapticFeedback.impactOccurred("heavy"), 150);
+    setTimeout(() => tele.HapticFeedback.impactOccurred("heavy"), 150);
+    setTimeout(() => tele.HapticFeedback.impactOccurred("heavy"), 150);
   }
 });

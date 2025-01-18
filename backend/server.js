@@ -123,7 +123,7 @@ io.on("connection", (socket) => {
     }
   });
 
-  socket.on("try_join_game_tele", (data) => {
+  socket.on("try_join_tele_game", (data) => {
     const { chat_id } = data;
     const roomsize = io.sockets.adapter.rooms.get(chat_id)?.size;
     console.log("room : " + room);
@@ -133,7 +133,7 @@ io.on("connection", (socket) => {
     if (roomsize >= 2) {
       socket.emit("error");
     } else {
-      socket.emit("try_join_game_tele_success", data);
+      socket.emit("try_join_tele_game_success", data);
     }
   });
 

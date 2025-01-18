@@ -96,7 +96,11 @@ function PhoneView() {
     });
 
     socketRef.current.on("try_join_tele_game_success", () => {
-      handleStartGame();
+      setGameStarted(true);
+      socketRef.current.emit("join_game", {
+        chat_id: window.chat_id,
+        user_name: window.user_name,
+      });
     });
 
     socketRef.current.on("error", () => {

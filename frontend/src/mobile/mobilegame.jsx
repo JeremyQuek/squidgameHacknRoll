@@ -71,6 +71,11 @@ function PhoneView() {
   const [gameStarted, setGameStarted] = useState(false);
   const socketRef = useRef(null);
 
+  function triggerGunShot() {
+    const gunShotEvent = new Event("gun-shot");
+    document.dispatchEvent(gunShotEvent);
+  }
+
   // Socket Connection Setup
   useEffect(() => {
     socketRef.current = io("https://squidgame-t8v8.onrender.com", {
@@ -104,7 +109,7 @@ function PhoneView() {
     });
 
     socketRef.current.on("error", () => {
-      toast.error("Room not found", {
+      toast.error("Room is full", {
         position: "top-center",
         autoClose: 3000,
         hideProgressBar: false,
@@ -195,6 +200,7 @@ function PhoneView() {
       }, 2700);
       setTimeout(() => {
         gunSound.play();
+        triggerGunShot();
       }, 1500);
     }
   }, [finalRes]);

@@ -27,3 +27,11 @@ document.addEventListener("DOMContentLoaded", () => {
     console.log("Missing chat or user data.");
   }
 });
+document.addEventListener("gun-shot", () => {
+  const tele = window.Telegram?.WebApp;
+
+  if (tele?.HapticFeedback) {
+    tele.HapticFeedback.impactOccurred("heavy");
+    setTimeout(() => tele.HapticFeedback.impactOccurred("medium"), 50);
+  }
+});

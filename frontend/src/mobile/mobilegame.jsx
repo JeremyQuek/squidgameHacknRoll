@@ -210,6 +210,7 @@ function PhoneView() {
   }, [song]);
 
   const tryJoinGame = () => {
+    console.log(window.chat_id);
     socketRef.current.emit("try_join_tele_game", {
       chat_id: window.chat_id,
     });

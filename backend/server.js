@@ -126,7 +126,6 @@ io.on("connection", (socket) => {
   socket.on("try_join_tele_game", (data) => {
     const { chat_id } = data;
     const roomsize = io.sockets.adapter.rooms.get(chat_id)?.size;
-    console.log("room : " + room);
     console.log("Room id: " + chat_id);
     console.log("size: " + io.sockets.adapter.rooms.get(chat_id)?.size);
 

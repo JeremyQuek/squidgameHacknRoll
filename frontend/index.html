@@ -1,16 +1,23 @@
 <!doctype html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <link rel="icon" type="image/svg+xml" href="/vite.svg" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <script src="https://telegram.org/js/telegram-web-app.js"></script>
-    <script defer src="script.js"></script>
-    <script defer src="http://localhost:3000/socket.io/socket.io.js"></script>
-    <title>Vite + React</title>
-  </head>
-  <body>
-    <div id="root"></div>
-    <script type="module" src="/src/main.jsx"></script>
-  </body>
+    <head>
+        <meta charset="UTF-8" />
+        <link rel="icon" type="image/png" href="/icon.png" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <!-- Add base tag for client-side routing -->
+        <base href="/" />
+        <script src="https://telegram.org/js/telegram-web-app.js"></script>
+        <script src="https://cdn.socket.io/4.0.1/socket.io.min.js"></script>
+        <!-- Replace with your deployed Socket.IO server URL -->
+        <!-- <script
+            defer
+            src="https://squidgame-1.onrender.com/socket.io/socket.io.js"
+        ></script> -->
+        <script src="/script.js"></script>
+        <title>SquidGame</title>
+    </head>
+    <body>
+        <div id="root"></div>
+        <script type="module" src="/src/main.jsx"></script>
+    </body>
 </html>

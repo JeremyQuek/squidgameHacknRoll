@@ -40,13 +40,13 @@ function App() {
               )
             }
           />
-          <Route path="/web" element={<WebView />} />
           <Route
-            path="/phone"
+            path="/web"
             element={
-              isMobileDevice ? <Navigate to="/web" replace /> : <MobileView />
+              isMobileDevice ? <Navigate to="/phone" replace /> : <WebView />
             }
           />
+          <Route path="/phone" element={<MobileView />} />
         </Routes>
       </Suspense>
     </Router>

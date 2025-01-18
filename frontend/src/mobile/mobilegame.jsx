@@ -18,6 +18,9 @@ import paper from "../assets/paper.png";
 import stone from "../assets/stone.png";
 import blood from "../assets/blood.png";
 
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+
 const containerStyle = {
   position: "absolute",
   top: "70%",
@@ -90,6 +93,22 @@ function PhoneView() {
 
     socketRef.current.on("start_game", (message) => {
       console.log(message);
+    });
+
+    socketRef.current.on("try_join_tele_game_success", () => {
+      handleStartGame();
+    });
+
+    socketRef.current.on("error", () => {
+      toast.error("Room not found", {
+        position: "top-center",
+        autoClose: 3000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        theme: "dark",
+      });
     });
 
     return () => {
@@ -186,11 +205,17 @@ function PhoneView() {
     };
   }, [song]);
 
+  const tryJoinGame = () => {
+    socketRef.current.emit("try_join_tele_game", {
+      chat_id: window.chat_id,
+    });
+  };
+
   const handleStartGame = () => {
     setGameStarted(true);
     socketRef.current.emit("join_game", {
-        chat_id: window.chat_id,
-        user_name: window.user_name
+      chat_id: window.chat_id,
+      user_name: window.user_name,
     });
 
     song.play().catch((error) => {
@@ -271,65 +296,67 @@ function PhoneView() {
 
   useEffect(() => {
     if (phase === "result") {
-        console.log("Current phase is now result");
-        socketRef.current.emit('calculateScore');   
+      console.log("Current phase is now result");
+      socketRef.current.emit("calculateScore");
     }
-}, [phase]);
+  }, [phase]);
 
   useEffect(() => {
-      const handleGameResult = (result) => {
-          switch (result) {
-              case "withdraw_win":
-                  setGameResult("Opponent did not withdraw a hand in time. You win!");
-                  winSound.play();
-                  setPlayerScore((prevPlayer) => prevPlayer + 1);
-                  break;
+    const handleGameResult = (result) => {
+      switch (result) {
+        case "withdraw_win":
+          setGameResult("Opponent did not withdraw a hand in time. You win!");
+          winSound.play();
+          setPlayerScore((prevPlayer) => prevPlayer + 1);
+          break;
 
-              case "withdraw_lose":
-                  setGameResult("You didn't withdraw a hand in time! You Lose");
-                  setAiScore((prevAi) => prevAi + 1);
-                  setTimeout(() => {
-                      failSound.play();
-                  }, 500);
-                  break;
+        case "withdraw_lose":
+          setGameResult("You didn't withdraw a hand in time! You Lose");
+          setAiScore((prevAi) => prevAi + 1);
+          setTimeout(() => {
+            failSound.play();
+          }, 500);
+          break;
 
-              case "withdraw_tie":
-                  setGameResult("Both players did not withdraw a hand in time. It's a tie!");
-                  console.log("Tie occurred.");
-                  break;
+        case "withdraw_tie":
+          setGameResult(
+            "Both players did not withdraw a hand in time. It's a tie!",
+          );
+          console.log("Tie occurred.");
+          break;
 
-              case "win":
-                  setGameResult("You win!");
-                  winSound.play();
-                  setPlayerScore((prevPlayer) => prevPlayer + 1);
-                  break;
-                  
-              case "lose":
-                  setGameResult("You Lose!");
-                  setAiScore((prevAi) => prevAi + 1);
-                  setTimeout(() => {
-                      failSound.play();
-                  }, 500);
-                  break;
+        case "win":
+          setGameResult("You win!");
+          winSound.play();
+          setPlayerScore((prevPlayer) => prevPlayer + 1);
+          break;
 
-              case "tie":
-                  setGameResult("It's a tie!");
-                  console.log("Tie occurred.");
-                  break;
+        case "lose":
+          setGameResult("You Lose!");
+          setAiScore((prevAi) => prevAi + 1);
+          setTimeout(() => {
+            failSound.play();
+          }, 500);
+          break;
 
-              default:
-                  console.error("Unexpected game result:", result);
-          }
-      };
+        case "tie":
+          setGameResult("It's a tie!");
+          console.log("Tie occurred.");
+          break;
 
-      // Listen for 'gameResult' event from server
-      socketRef.current.on("gameResult", handleGameResult);
+        default:
+          console.error("Unexpected game result:", result);
+      }
+    };
 
-      // Cleanup listener on unmount
-      return () => {
-          socketRef.current.off("gameResult", handleGameResult);
-      };
-    }, [socketRef, playerScore, aiScore, winSound, failSound]);
+    // Listen for 'gameResult' event from server
+    socketRef.current.on("gameResult", handleGameResult);
+
+    // Cleanup listener on unmount
+    return () => {
+      socketRef.current.off("gameResult", handleGameResult);
+    };
+  }, [socketRef, playerScore, aiScore, winSound, failSound]);
 
   const handleWithdraw = (hand) => {
     if (canWithdraw && !withdrawnHand) {
@@ -413,7 +440,7 @@ function PhoneView() {
     setPLayerChoice("Player Choice");
     setPhase("");
     setPaint(false);
-    socketRef.current.emit('resetGame');
+    socketRef.current.emit("resetGame");
     console.log("TOLD SERVER TO RESET");
   };
 
@@ -439,12 +466,25 @@ function PhoneView() {
 
         <h1 style={{ marginTop: "225px" }}>SCISSOR PAPER STONE MINUS 1</h1>
 
+        <ToastContainer
+          position="top-center"
+          autoClose={3000}
+          hideProgressBar={false}
+          newestOnTop={false}
+          closeOnClick
+          rtl={false}
+          pauseOnFocusLoss
+          draggable
+          pauseOnHover
+          theme="dark"
+        />
+
         <div
           className={`start-button-container ${gameStarted ? "fade-out" : ""}`}
         >
           {!gameStarted && (
             <div style={{ textAlign: "center" }}>
-              <button onClick={handleStartGame} className="start-button">
+              <button onClick={tryJoinGame} className="start-button">
                 Start Game
               </button>
             </div>

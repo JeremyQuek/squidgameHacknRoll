@@ -44,7 +44,7 @@ function App() {
           <Route
             path="/phone"
             element={
-              isMobileDevice ? <MobileView /> : <Navigate to="/web" replace />
+              isMobileDevice ? <Navigate to="/web" replace /> : <MobileView />
             }
           />
         </Routes>

@@ -22,12 +22,6 @@ function App() {
   if (isMobileDevice === null) {
     return <div>Loading...</div>;
   }
-  const isTele = true;
-  console.log(window.chat_id);
-  if (window.chat_id === null) {
-    isTele = false;
-  }
-  console.log("is this telegram?" + isTele);
 
   return (
     <Router>
@@ -37,7 +31,7 @@ function App() {
           <Route
             path="/"
             element={
-              window.chat_id ? (
+              window.isTele ? (
                 <Navigate to="/lobby" replace />
               ) : (
                 <Navigate to="/phone" replace />

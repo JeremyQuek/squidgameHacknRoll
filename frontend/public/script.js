@@ -5,7 +5,7 @@ document.addEventListener("DOMContentLoaded", () => {
     console.error("Telegram WebApp not available.");
     return;
   }
-
+  window.isTele = false;
   const chat = tele.initDataUnsafe.chat_instance;
 
   const user = tele.initDataUnsafe.user;
@@ -15,6 +15,7 @@ document.addEventListener("DOMContentLoaded", () => {
     console.log("User ID:", user.id);
     console.log("First Name:", user.first_name);
 
+    window.isTele = true;
     window.chat_id = chat;
     window.user_name = user.first_name;
     // socket.emit('chat-info', {

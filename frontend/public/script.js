@@ -1,19 +1,19 @@
-document.addEventListener('DOMContentLoaded', () => {
+document.addEventListener("DOMContentLoaded", () => {
   const tele = window.Telegram?.WebApp;
 
   if (!tele) {
-    console.error('Telegram WebApp not available.');
+    console.error("Telegram WebApp not available.");
     return;
   }
 
   const chat = tele.initDataUnsafe.chat_instance;
 
   const user = tele.initDataUnsafe.user;
-
+  console.log("hoi");
   if (chat && user) {
-    console.log('Chat ID:', chat);
-    console.log('User ID:', user.id);
-    console.log('First Name:', user.first_name);
+    console.log("Chat ID:", chat);
+    console.log("User ID:", user.id);
+    console.log("First Name:", user.first_name);
 
     window.chat_id = chat;
     window.user_name = user.first_name;
@@ -23,8 +23,6 @@ document.addEventListener('DOMContentLoaded', () => {
     //   user_name: user.first_name,
     // });
   } else {
-    console.log('Missing chat or user data.');
+    console.log("Missing chat or user data.");
   }
-
-
 });

@@ -17,8 +17,10 @@ import masks from "../assets/try.png";
 import scissors from "../assets/scissor.png";
 import paper from "../assets/paper.png";
 import stone from "../assets/stone.png";
-import paint from "../assets/lose.png";
 import blood from "../assets/blood.png";
+
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const containerStyle = {
   position: "absolute",
@@ -92,6 +94,22 @@ function WebView() {
 
     socketRef.current.on("start_game", (message) => {
       console.log(message);
+    });
+
+    socketRef.current.on("try_join_tele_game_success", () => {
+      handleStartGame();
+    });
+
+    socketRef.current.on("error", () => {
+      toast.error("Room not found", {
+        position: "top-center",
+        autoClose: 3000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        theme: "dark",
+      });
     });
 
     return () => {
@@ -187,6 +205,12 @@ function WebView() {
       song.currentTime = 0;
     };
   }, [song]);
+
+  const tryJoinGame = () => {
+    socketRef.current.emit("try_join_tele_game", {
+      chat_id: window.chat_id,
+    });
+  };
 
   const handleStartGame = () => {
     setGameStarted(true);
@@ -440,6 +464,19 @@ function WebView() {
       <h4 className="cryptic-text">자신의 책임하에 플레이하세요</h4>
 
       <h1 style={{ marginTop: "300px" }}>SCISSOR PAPER STONE MINUS 1</h1>
+
+      <ToastContainer
+        position="top-center"
+        autoClose={3000}
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+        theme="dark"
+      />
 
       {/* Start Game Button */}
       <div

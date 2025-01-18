@@ -23,6 +23,8 @@ function App() {
     return <div>Loading...</div>;
   }
 
+  console.log(window.isTele);
+
   return (
     <Router>
       <Suspense fallback={<div>Loading...</div>}>
@@ -32,9 +34,9 @@ function App() {
             path="/"
             element={
               window.isTele ? (
-                <Navigate to="/lobby" replace />
-              ) : (
                 <Navigate to="/phone" replace />
+              ) : (
+                <Navigate to="/lobby" replace />
               )
             }
           />

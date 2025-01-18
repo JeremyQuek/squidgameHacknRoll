@@ -106,6 +106,10 @@ function PhoneView() {
         chat_id: window.chat_id,
         user_name: window.user_name,
       });
+
+      song.play().catch((error) => {
+        console.error("Error playing audio:", error);
+      });
     });
 
     socketRef.current.on("error", () => {

@@ -484,7 +484,7 @@ function WebView() {
       >
         {!gameStarted && (
           <div style={{ textAlign: "center" }}>
-            <button onClick={handleStartGame} className="start-button">
+            <button onClick={tryJoinGame} className="start-button">
               Start Game
             </button>
           </div>

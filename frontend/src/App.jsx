@@ -23,21 +23,15 @@ function App() {
     return <div>Loading...</div>;
   }
 
-  console.log(window.isTele);
-
   return (
     <Router>
       <Suspense fallback={<div>Loading...</div>}>
         <Routes>
-          <Route path="/lobby" element={<Lobby />} />
+          <Route path="/" element={<Lobby />} />
           <Route
-            path="/"
+            path="/phone"
             element={
-              window.isTele ? (
-                <Navigate to="/phone" replace />
-              ) : (
-                <Navigate to="/lobby" replace />
-              )
+              !isMobileDevice ? <Navigate to="/web" replace /> : <MobileView />
             }
           />
           <Route
@@ -46,7 +40,6 @@ function App() {
               isMobileDevice ? <Navigate to="/phone" replace /> : <WebView />
             }
           />
-          <Route path="/phone" element={<MobileView />} />
         </Routes>
       </Suspense>
     </Router>

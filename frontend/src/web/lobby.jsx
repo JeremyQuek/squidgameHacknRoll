@@ -20,7 +20,6 @@ function Lobby() {
     return x;
   };
 
-
   useEffect(() => {
     socketRef.current = io("https://squidgame-t8v8.onrender.com", {
       transports: ["websocket", "polling"],
@@ -67,27 +66,30 @@ function Lobby() {
   }, [navigate]);
 
   const copyToClipboard = () => {
-    navigator.clipboard.writeText(roomCode).then(() => {
-      toast.success('Room code copied to clipboard!', {
-        position: "top-center",
-        autoClose: 2000,
-        hideProgressBar: false,
-        closeOnClick: true,
-        pauseOnHover: true,
-        draggable: true,
-        theme: "dark",
+    navigator.clipboard
+      .writeText(roomCode)
+      .then(() => {
+        toast.success("Room code copied to clipboard!", {
+          position: "top-center",
+          autoClose: 2000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          theme: "dark",
+        });
+      })
+      .catch((err) => {
+        toast.error("Failed to copy code", {
+          position: "top-center",
+          autoClose: 2000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          theme: "dark",
+        });
       });
-    }).catch((err) => {
-      toast.error('Failed to copy code', {
-        position: "top-center",
-        autoClose: 2000,
-        hideProgressBar: false,
-        closeOnClick: true,
-        pauseOnHover: true,
-        draggable: true,
-        theme: "dark",
-      });
-    });
   };
 
   const handleCreateRoom = () => {
@@ -401,6 +403,20 @@ function Lobby() {
           </div>
         </>
       )}
+      <br />
+      <br />
+      <br />
+      <br />
+      <br />
+      <br />
+      <br />
+      <br />
+      <br />
+      <br />
+      <br />
+      <br />
+      <br />
+      <br />
     </div>
   );
 }

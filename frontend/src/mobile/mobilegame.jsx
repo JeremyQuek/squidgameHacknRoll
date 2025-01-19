@@ -458,7 +458,7 @@ function PhoneView() {
     socketRef.current.emit("resetGame");
     console.log("TOLD SERVER TO RESET");
   };
-
+  //jjoj
   return (
     <div className="body">
       <div>

@@ -27,7 +27,7 @@ function App() {
     <Router>
       <Suspense fallback={<div>Loading...</div>}>
         <Routes>
-          <Route path="/" element={<Phone />} />
+          <Route path="/" element={<MobileView />} />
         </Routes>
       </Suspense>
     </Router>

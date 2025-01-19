@@ -34,7 +34,7 @@ const containerStyle = {
   alignItems: "center",
   gap: "0.5vw",
 };
-
+//ok
 const choices = ["scissors", "paper", "stone"];
 
 function PhoneView() {
